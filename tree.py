@@ -1,8 +1,8 @@
 class Tree:
-    def __init__(self, value, children=None, parent=None):
+    def __init__(self, value, children=None):
         self.value = value
         self.children = children
-        self.parent = parent
+        self.parent = None
         if children:
             for child in children:
                 child.parent = self
@@ -33,6 +33,7 @@ class Tree:
         parent = self.__find_node(parent_node_value)
 
         if parent:
+            node.parent = parent
             if parent.children is None:
                 parent.children = []
             parent.children.append(node)
@@ -73,3 +74,6 @@ class Tree:
 
     def __get_index(self, node):
         return node.parent.children.index(node)
+
+if __name__ == '__main__':
+    tree = Tree(10, [Tree(5, [Tree(6), Tree(4)]), Tree(15, [Tree(20), Tree(25)])])
