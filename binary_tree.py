@@ -6,7 +6,7 @@ class Node:
 
 
 class BinarySearchTree:
-    def __init__(self, root):
+    def __init__(self, root=None):
         self.root = root
 
     def dfs(self, node=None):
@@ -21,7 +21,16 @@ class BinarySearchTree:
         if node.right:
             self.dfs(node.right)
 
+    def print_inorder(self, indent, root):
+        if root:
+            self.print_inorder(indent + 2, root.left)
+            print(f"{' ' * indent}{root.value}")
+            self.print_inorder(indent + 2, root.right)
+
     def add(self, value, node=None):
+        if not self.root:
+            self.root = Node(value)
+            return
         if not node:
             node = self.root
 
@@ -59,6 +68,16 @@ class BinarySearchTree:
             return self.search(value, node.left)
         else:
             return self.search(value, node.right)
+
+    def initialize(self, start, end, list):
+        if start >= end:
+            return
+
+        middle = (start + end) // 2
+        self.add(list[middle])
+        self.initialize(start, middle - 1, list)
+        self.initialize(middle + 1, end, list)
+        
 
     # def remove(self, value, node=None):
     #     if not node:
