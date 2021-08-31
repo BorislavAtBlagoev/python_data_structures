@@ -5,7 +5,7 @@ class Node:
         self.right = right
 
 
-class BinaryTree:
+class BinarySearchTree:
     def __init__(self, root):
         self.root = root
 
@@ -76,8 +76,3 @@ class BinaryTree:
     #         self.remove(value, node.left)
     #     else:
     #         self.remove(value, node.right)
-
-
-if __name__ == '__main__':
-    root = Node(20, Node(10, Node(5), Node(11)), Node(25, Node(22), Node(30)))
-    bt = BinaryTree(root)

@@ -74,6 +74,3 @@ class Tree:
 
     def __get_index(self, node):
         return node.parent.children.index(node)
-
-if __name__ == '__main__':
-    tree = Tree(10, [Tree(5, [Tree(6), Tree(4)]), Tree(15, [Tree(20), Tree(25)])])
