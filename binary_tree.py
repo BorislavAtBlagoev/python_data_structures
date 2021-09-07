@@ -9,25 +9,7 @@ class BinarySearchTree:
     def __init__(self, root=None):
         self.root = root
 
-    def dfs(self, node=None):
-        if not node:
-            node = self.root
-
-        print(node.value)
-
-        if node.left:
-            self.dfs(node.left)
-
-        if node.right:
-            self.dfs(node.right)
-
-    def print_inorder(self, indent, root):
-        if root:
-            self.print_inorder(indent + 2, root.left)
-            print(f"{' ' * indent}{root.value}")
-            self.print_inorder(indent + 2, root.right)
-
-    def add(self, value, node=None):
+    def insert(self, value, node=None):
         if not self.root:
             self.root = Node(value)
             return
@@ -38,12 +20,12 @@ class BinarySearchTree:
             if node.left is None:
                 node.left = Node(value)
                 return
-            self.add(value, node.left)
+            self.insert(value, node.left)
         else:
             if node.right is None:
                 node.right = Node(value)
                 return
-            self.add(value, node.right)
+            self.insert(value, node.right)
 
     def contains(self, value, node):
         if not node:
@@ -69,29 +51,37 @@ class BinarySearchTree:
         else:
             return self.search(value, node.right)
 
-    def initialize(self, start, end, list):
-        if start >= end:
+    def remove(self, value, node=None):
+        if not node:
+            node = self.root
+
+        if node.left.value == value:
+            node.left = None
             return
 
-        middle = (start + end) // 2
-        self.add(list[middle])
-        self.initialize(start, middle - 1, list)
-        self.initialize(middle + 1, end, list)
-        
+        if node.right.value == value:
+            node.right = None
+            return
 
-    # def remove(self, value, node=None):
-    #     if not node:
-    #         node = self.root
+        if node.value > value:
+            self.remove(value, node.left)
+        else:
+            self.remove(value, node.right)
 
-    #     if node.left.value == value:
-    #         node.left = None
-    #         return
+    def dfs(self, node=None):
+        if not node:
+            node = self.root
 
-    #     if node.right.value == value:
-    #         node.right = None
-    #         return
+        print(node.value)
 
-    #     if node.value > value:
-    #         self.remove(value, node.left)
-    #     else:
-    #         self.remove(value, node.right)
+        if node.left:
+            self.dfs(node.left)
+
+        if node.right:
+            self.dfs(node.right)
+
+    def print_inorder(self, indent, root):
+        if root:
+            self.print_inorder(indent + 2, root.left)
+            print(f"{' ' * indent}{root.value}")
+            self.print_inorder(indent + 2, root.right)
